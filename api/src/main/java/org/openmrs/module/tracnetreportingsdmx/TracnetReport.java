@@ -140,6 +140,9 @@ public class TracnetReport  {
 				throw new ReportingException("Unable to construct configuration resource from properties", e);
 			}
 			
+			reportDefinition = getReportDefinitionService().saveDefinition(reportDefinition);
+			reportDesign = getReportService().saveReportDesign(reportDesign);
+			
 			ReportProcessorConfiguration emailConfiguration = getReportService().getReportProcessorConfigurationByUuid(REPORT_PROCESSOR_UUID);
 			if (emailConfiguration == null) {
 				emailConfiguration = new ReportProcessorConfiguration();
@@ -159,8 +162,6 @@ public class TracnetReport  {
 			emailProps.put("attachmentName", "sdmx.zip");
 			emailConfiguration.setConfiguration(emailProps);
 
-			reportDefinition = getReportDefinitionService().saveDefinition(reportDefinition);
-			reportDesign = getReportService().saveReportDesign(reportDesign);
 			emailConfiguration = getReportService().saveReportProcessorConfiguration(emailConfiguration);
 		}
 

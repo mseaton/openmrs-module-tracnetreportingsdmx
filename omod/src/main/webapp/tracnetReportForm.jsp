@@ -45,12 +45,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td><label class="desc" for="location">Location</label>:</td>
-						<td>${location.name}</td>
-					</tr>
-					<tr>
 						<td><label class="desc" for="format">Format</label>:</td>
-						<td>${format.label}</td>
+						<td>
+							<c:forEach items="${formats}" var="f">
+								<input type="radio" name="format" value="${f}" <c:if test="${format == f}">selected</c:if>/>${f}
+								&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+						</td>
 					</tr>				
 				</table>
 				<br/>

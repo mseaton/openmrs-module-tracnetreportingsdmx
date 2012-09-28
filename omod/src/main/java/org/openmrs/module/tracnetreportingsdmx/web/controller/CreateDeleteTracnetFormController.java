@@ -12,6 +12,6 @@ public class CreateDeleteTracnetFormController {
 	@RequestMapping("/module/tracnetreportingsdmx/createTracnetReport")
 	public String createTracnetReport(HttpServletRequest request) throws Exception {
 		TracnetReport.getTracnetReportDefinition(true);
-		return "redirect:/module/tracnetreport/tracnetReport.form";
+		return "redirect:/module/tracnetreportingsdmx/tracnetReport.form";
 	}
 }
