@@ -7,11 +7,10 @@
 	<id>tracnetreportingsdmx</id>
 	<name>Tracnet Report Sdmx Integration</name>
 	<version>1.0</version>
-	<package>org.openmrs.module.@MODULE_ID@</package>
+	<package>org.openmrs.module.tracnetreportingsdmx</package>
 	<author>Partners In Health</author>
 	<description></description>
-	<activator>@MODULE_PACKAGE@.TracnetReportingSdmxModuleActivator</activator>
-	<updateURL>https://dev.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL>
+	<activator>org.openmrs.module.tracnetreportingsdmx.TracnetReportingSdmxModuleActivator</activator>
 	<require_version>1.6</require_version>
 
 	<require_modules>
@@ -22,32 +21,27 @@
 
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>@MODULE_PACKAGE@.web.extension.ManageAdminListExt</class>
+		<class>org.openmrs.module.tracnetreportingsdmx.web.extension.ManageAdminListExt</class>
 	</extension>
 	
 	<globalProperty>
-		<property>tracnetreportingdsdmx.sdmx_email_from</property>
-		<defaultValue></defaultValue>
+		<property>tracnetreportingsdmx.email_from</property>
+		<defaultValue>NOT_CONFIGURED</defaultValue>
 		<description>Specifies the return email address for submission of the sdmx rendered output of the tracnet report</description>
 	</globalProperty>
 	<globalProperty>
-		<property>tracnetreportingdsdmx.sdmx_email_to</property>
-		<defaultValue></defaultValue>
+		<property>tracnetreportingsdmx.email_to</property>
+		<defaultValue>NOT_CONFIGURED</defaultValue>
 		<description>Specifies the recipient email address for submission of the sdmx rendered output of the tracnet report</description>
 	</globalProperty>
 	<globalProperty>
-		<property>tracnetreportingdsdmx.sdmx_confirmation_email_address</property>
-		<defaultValue></defaultValue>
+		<property>tracnetreportingsdmx.confirmation_email_address</property>
+		<defaultValue>NOT_CONFIGURED</defaultValue>
 		<description>Specifies the email address that tracnet can use to send confirmation messages back to</description>
 	</globalProperty>
 	<globalProperty>
-		<property>tracnetreportingdsdmx.locationId</property>
-		<defaultValue></defaultValue>
-		<description>This should be the primary key of the location that this server will use to run the tracnet report</description>
-	</globalProperty>
-	<globalProperty>
-		<property>tracnetreportingdsdmx.locationDataProviderId</property>
-		<defaultValue></defaultValue>
+		<property>tracnetreportingsdmx.locationDataProviderId</property>
+		<defaultValue>NOT_CONFIGURED</defaultValue>
 		<description>
 			This should be the data provider id of the location that this server will use to run the tracnet report.
 			This should most likely be the FOSA code for the location

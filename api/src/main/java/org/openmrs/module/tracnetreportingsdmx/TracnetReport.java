@@ -81,6 +81,7 @@ public class TracnetReport  {
 			if (reportDesign == null) {
 				reportDesign = new ReportDesign();
 			}
+			reportDesign.setUuid(REPORT_DESIGN_UUID);
 			reportDesign.setName("TracNet SDMX Export");
 			reportDesign.setReportDefinition(reportDefinition);
 			reportDesign.setRendererType(SdmxReportRenderer.class);
@@ -100,6 +101,7 @@ public class TracnetReport  {
 			catch (Exception e) {
 				throw new RuntimeException("Failed to load SDMX DSD resource", e);
 			}
+
 			SDMXHDMessage sdmxMessage = SdmxReportRenderer.getSdmxMessage(sdmxDsdResource);
 			DSD sdmxDsd = sdmxMessage.getDsd();
 			
@@ -125,8 +127,10 @@ public class TracnetReport  {
 				
 				SdmxReportRendererConfig config = new SdmxReportRendererConfig();
 				config.setReportfrequency("M");
+				config.setOutputWithinOriginalDsd(true);
+				config.setCompressOutput(false);
 				config.addDataSetAttribute("dataProviderId", "gp:tracnetreportingsdmx.locationDataProviderId");
-				config.addDataSetAttribute("confirmationEmail", "gp:tracnetreportingsdmx.sdmx_confirmation_email_address");
+				config.addDataSetAttribute("confirmationEmail", "gp:tracnetreportingsdmx.confirmation_email_address");
 				config.setColumnMappings(indicatorMappingProperties);
 				
 				configResource.setContents(SdmxReportRendererConfig.serializeToXml(config).getBytes("UTF-8"));
@@ -147,8 +151,8 @@ public class TracnetReport  {
 			emailConfiguration.setReportDesign(reportDesign);
 	
 			Properties emailProps = new Properties();
-			emailProps.put("from", Context.getAdministrationService().getGlobalProperty("tracnetreport.sdmx_email_from"));
-			emailProps.put("to", Context.getAdministrationService().getGlobalProperty("tracnetreport.sdmx_email_to"));
+			emailProps.put("from", Context.getAdministrationService().getGlobalProperty("tracnetreportingsdmx.email_from"));
+			emailProps.put("to", Context.getAdministrationService().getGlobalProperty("tracnetreportingsdmx.email_to"));
 			emailProps.put("subject", "TracNet Submission Test");
 			emailProps.put("addOutputToContent", "false");
 			emailProps.put("addOutputAsAttachment", "true");

@@ -15,7 +15,6 @@ package org.openmrs.module.tracnetreportingsdmx;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,13 +31,12 @@ import org.openmrs.module.reporting.report.definition.service.ReportDefinitionSe
 import org.openmrs.module.reporting.report.renderer.ReportRenderer;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.module.reporting.report.util.ReportUtil;
-import org.openmrs.module.sdmxhdintegration.reporting.extension.SdmxReportRenderer;
 import org.openmrs.test.BaseContextSensitiveTest;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 
 /**
- * Tests the tracnet report sdmx integration
+ * Tests the production of the TracNet Report Definition to SDMX
  */
 @SkipBaseSetup
 public class TracnetReportTest extends BaseModuleContextSensitiveTest {
@@ -57,7 +55,9 @@ public class TracnetReportTest extends BaseModuleContextSensitiveTest {
 	public void setup() throws Exception {
 		authenticate();
 		setGlobalProperty("tracnetreportingsdmx.locationDataProviderId", "1234");
-		setGlobalProperty("tracnetreportingsdmx.sdmx_confirmation_email_address", "mseaton@pih.org");
+		setGlobalProperty("tracnetreportingsdmx.confirmation_email_address", "mseaton@pih.org");
+		setGlobalProperty("tracnetreportingsdmx.email_from", "mseaton@pih.org");
+		setGlobalProperty("tracnetreportingsdmx.email_to", "mseaton@pih.org");		
 	}
 
 	/**
@@ -74,13 +74,15 @@ public class TracnetReportTest extends BaseModuleContextSensitiveTest {
 		ReportDefinitionService rs = Context.getService(ReportDefinitionService.class);
 		ReportData data = rs.evaluate(reportDefinition, context);
 		
-		ReportDesign design = Context.getService(ReportService.class).getReportDesigns(reportDefinition, SdmxReportRenderer.class, true).get(0);
+		ReportDesign design = Context.getService(ReportService.class).getReportDesignByUuid(TracnetReport.REPORT_DESIGN_UUID);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ReportRenderer renderer = design.getRendererType().newInstance();
 		renderer.render(data, design.getUuid(), baos);
 		baos.close();
-		ReportUtil.writeByteArrayToFile(new File("/home/mseaton/Desktop/testTracnetOutput.xml"), baos.toByteArray());
+		
+		String fileName = renderer.getFilename(reportDefinition, design.getUuid());
+		ReportUtil.writeByteArrayToFile(new File("/home/mseaton/Desktop", fileName), baos.toByteArray());
 	}
 	
 	private void setGlobalProperty(String name, String value) {
@@ -90,10 +92,5 @@ public class TracnetReportTest extends BaseModuleContextSensitiveTest {
 		}
 		gp.setPropertyValue(value);
 		Context.getAdministrationService().saveGlobalProperty(gp);
-	}
-	
-	@Test
-	public void testMe() throws Exception {
-		System.out.print(UUID.randomUUID().toString());
 	}
 }
