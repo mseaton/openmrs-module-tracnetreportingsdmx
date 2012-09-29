@@ -71,7 +71,11 @@ public class TracnetReport  {
 			// This allows us to consolidate 2 functions:
 			//  1. columnName -> methodNameInIndicatorService will tell us how to compute each indicator value from OpenMRS
 			//  2. columnName -> indicatorAndDimensionOptionsForSdmx will tells us how this should be Mapped to the sdmx DSD
-			Properties indicatorSpecification = ObjectUtil.loadPropertiesFromClasspath("org/openmrs/module/tracnetreportingsdmx/IndicatorSpecifications-11.properties");
+			Properties indicatorSpecification = new Properties();
+			for (int i=1; i<=12; i++) {
+				Properties p = ObjectUtil.loadPropertiesFromClasspath("org/openmrs/module/tracnetreportingsdmx/IndicatorSpecifications-"+i+".properties");
+				indicatorSpecification.putAll(p);
+			}
 	
 			// Load in the SDMX Message.  This also serves a dual purpose:
 			// 1. We can use the information in here to get descriptions for each of the indicators for displaying
