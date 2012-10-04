@@ -1,6 +1,7 @@
 package org.openmrs.module.tracnetreportingsdmx;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
@@ -35,6 +36,8 @@ public class TracnetReport  {
 	public static final String REPORT_NAME = "TRACNet Report";
 	public static final String REPORT_UUID = "313b0f74-efe2-4fc8-abdf-674cb72d2b88";
 	public static final String REPORT_DESIGN_UUID = "3d959286-bd43-4724-b21b-77038f6a933f";
+	public static final String REPORT_SDMXDSD_UUID = "851be946-0e29-11e2-9c5c-3c0754254b25";
+	public static final String REPORT_CONFIG_UUID = "abedac50-0e27-11e2-a526-3c0754254b25";
 	public static final String REPORT_PROCESSOR_UUID = "26026cad-fb94-4bad-bad1-124d820060cc";
 	
 	/**
@@ -95,6 +98,9 @@ public class TracnetReport  {
 			ReportDesignResource sdmxDsdResource = new ReportDesignResource();
 			try {
 				sdmxDsdResource.setName("template");
+				sdmxDsdResource.setUuid(REPORT_SDMXDSD_UUID);
+				sdmxDsdResource.setCreator(Context.getAuthenticatedUser());
+				sdmxDsdResource.setDateCreated(new Date());
 				sdmxDsdResource.setExtension("zip");
 				sdmxDsdResource.setReportDesign(reportDesign);
 				InputStream is = OpenmrsClassLoader.getInstance().getResourceAsStream("org/openmrs/module/tracnetreportingsdmx/TracnetReportSpecification.zip");
@@ -126,6 +132,9 @@ public class TracnetReport  {
 			try {
 				ReportDesignResource configResource = new ReportDesignResource();
 				configResource.setName("config");
+				configResource.setUuid(REPORT_CONFIG_UUID);
+				configResource.setCreator(Context.getAuthenticatedUser());
+				configResource.setDateCreated(new Date());
 				configResource.setExtension("xml");
 				configResource.setReportDesign(reportDesign);
 				
