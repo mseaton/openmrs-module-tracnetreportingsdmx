@@ -162,6 +162,7 @@ public class TracnetReport  {
 			}
 			
 			emailConfiguration.setName("TracNet Email Submission");
+			emailConfiguration.setUuid(REPORT_PROCESSOR_UUID);
 			emailConfiguration.setProcessorType(EmailReportProcessor.class.getName());
 			emailConfiguration.setProcessorMode(ProcessorMode.ON_DEMAND);
 			emailConfiguration.setReportDesign(reportDesign);
