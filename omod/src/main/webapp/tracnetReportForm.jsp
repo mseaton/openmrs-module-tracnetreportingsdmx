@@ -15,7 +15,7 @@
 			<form id="tracnet-report-form" action="" method="POST">
 				<input type="hidden" name="action" value="preview"/>
 				<input type="hidden" name="uuid" value="${reportDefinition.uuid}"/>
-				<input type="hidden" name="type" value="${reportDefinition.class.name}"/>
+				<input type="hidden" name="type" value="${reportDefinition['class'].name}"/>
 
 				<div>								
 					<spring:hasBindErrors name="reportDefinition">  
