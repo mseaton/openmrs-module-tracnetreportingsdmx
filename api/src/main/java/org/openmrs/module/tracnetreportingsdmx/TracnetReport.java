@@ -132,7 +132,7 @@ public class TracnetReport  {
 				SdmxReportRendererConfig config = new SdmxReportRendererConfig();
 				config.setReportfrequency("M");
 				config.setOutputWithinOriginalDsd(false);
-				config.setCompressOutput(false);
+				config.setCompressOutput(true);
 				config.addDataSetAttribute("dataProviderId", "gp:tracnetreportingsdmx.locationDataProviderId");
 				config.addDataSetAttribute("confirmationEmail", "gp:tracnetreportingsdmx.confirmation_email_address");
 				config.setColumnMappings(indicatorMappingProperties);
