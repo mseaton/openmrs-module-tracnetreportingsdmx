@@ -133,7 +133,7 @@ public class TracnetReport  {
 				config.setReportfrequency("M");
 				config.setOutputWithinOriginalDsd(false);
 				config.setCompressOutput(true);
-				config.addDataSetAttribute("dataProviderId", "gp:tracnetreportingsdmx.locationDataProviderId");
+				config.addDataSetAttribute("dataProviderID", "gp:tracnetreportingsdmx.locationDataProviderId");
 				config.addDataSetAttribute("confirmationEmail", "gp:tracnetreportingsdmx.confirmation_email_address");
 				config.setColumnMappings(indicatorMappingProperties);
 				
