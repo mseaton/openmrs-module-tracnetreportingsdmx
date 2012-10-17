@@ -82,7 +82,8 @@ public class TracnetReportTest extends BaseModuleContextSensitiveTest {
 		baos.close();
 		
 		String fileName = renderer.getFilename(reportDefinition, design.getUuid());
-		ReportUtil.writeByteArrayToFile(new File("/home/mseaton/Desktop", fileName), baos.toByteArray());
+		File outFile = File.createTempFile(fileName, null);
+		ReportUtil.writeByteArrayToFile(outFile, baos.toByteArray());
 	}
 	
 	private void setGlobalProperty(String name, String value) {
